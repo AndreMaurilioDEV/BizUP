@@ -13,13 +13,12 @@ class Endereco_User(models.Model):
     blank=True
   )
 
-# Create your models here.
 class User(models.Model):
   id_user = models.AutoField(primary_key=True)
-  nome = models.CharField(max_length=45)
-  email = models.EmailField(max_length=45, unique=True)
-  cpf = models.CharField(max_length=11, unique=True)
-  telefone = models.CharField(max_length=15)
+  nome = models.CharField(max_length=45, blank=False)
+  email = models.EmailField(max_length=45, unique=True, blank=False)
+  cpf = models.CharField(max_length=11, unique=True, blank=False)
+  telefone = models.CharField(max_length=15, blank=False)
   id_endereco_user = models.ForeignKey(
     Endereco_User,
     on_delete=models.CASCADE,
@@ -68,10 +67,10 @@ class Fidelidade(models.Model):
 
 class Venda(models.Model):
   id_venda = models.AutoField(primary_key=True)
-  valor_final = models.DecimalField(max_digits=10, decimal_places=2)
-  cupom_fiscal = models.CharField(max_length=45)
-  entrega = models.DecimalField(max_digits=10, decimal_places=2)
-  desconto = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+  valor_final = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
+  cupom_fiscal = models.CharField(max_length=45, blank=False)
+  entrega = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+  desconto = models.DecimalField(max_digits=5, decimal_places=2, default=0.00, blank=True)
 
 class Agendamento(models.Model):
   id_venda = models.ForeignKey(
@@ -124,11 +123,11 @@ class Venda_Realizada(models.Model):
 
 class Produto(models.Model):
   id_produto = models.AutoField(primary_key=True)
-  tipo = models.CharField(max_length=45)
-  desconto = models.BooleanField(default=False)
-  valor = models.DecimalField(max_digits=10, decimal_places=2)
-  nome = models.CharField(max_length=45)
-  desconto_produto = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+  tipo = models.CharField(max_length=45, blank=False)
+  desconto = models.BooleanField(default=False, blank=True)
+  valor = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
+  nome = models.CharField(max_length=45, blank=False)
+  desconto_produto = models.DecimalField(max_digits=5, decimal_places=2, default=0.00, blank=True)
 
 class Item_Produto_Venda(models.Model):
   id_mei = models.ForeignKey(
